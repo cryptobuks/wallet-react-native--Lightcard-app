@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native'
 import Swiper from 'react-native-swiper';
-import Header from '../../components/header';
 import Colors from './../../config/colors'
+import Header from '../../components/header';
 
 export default class SliderScreen extends Component {
 
