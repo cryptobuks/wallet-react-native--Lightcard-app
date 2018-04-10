@@ -1,18 +1,6 @@
 import React, {Component} from 'react'
-import ReactNative, {
-    View,
-    Alert,
-    StyleSheet,
-    WebView,
-    Linking,
-    ScrollView,
-    TouchableHighlight,
-    Text,
-    TouchableOpacity,
-    KeyboardAvoidingView
-} from 'react-native'
+import ReactNative, {KeyboardAvoidingView, ScrollView, StyleSheet, Text, TouchableHighlight, View} from 'react-native'
 import AuthService from './../../services/authService'
-import Icon from 'react-native-vector-icons/Ionicons'
 import Auth from './../../util/auth'
 import TextInput from './../../components/textInput'
 import MobileInput from './../../components/mobileNumberInput'
@@ -20,6 +8,29 @@ import Colors from './../../config/colors'
 import Header from './../../components/header'
 
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
+
+const mockState = {
+    first_name: 'Renier',
+    last_name: 'Botha',
+    email: 'r.botha91+xx@gmail.com',
+    email_status: true,
+    mobile_number: '+27',
+    mobile_number_status: true,
+    company: 'lite91',
+    password1: 'Renier123',
+    password1_status: true,
+    password2: 'Renier123',
+    password2_status: true,
+    password_matching: true,
+    terms_and_conditions: true,
+    password_error: null,
+    mobile_error: null,
+    email_error: null,
+    company_error: null,
+    inputNumber: '',
+    countryCode: '+27',
+    countryName: 'South Africa',
+}
 
 export default class Signup extends Component {
     static navigationOptions = {
@@ -41,57 +52,57 @@ export default class Signup extends Component {
             password2: '',
             password2_status: true,
             password_matching: true,
-            terms_and_conditions: false,
-            password_error:null,
-            mobile_error:null,
-            email_error:null,
-            company_error:null,
-            inputNumber:'',
-            countryCode:'+1',
-            countryName:'',
+            terms_and_conditions: true,
+            password_error: null,
+            mobile_error: null,
+            email_error: null,
+            company_error: null,
+            inputNumber: '',
+            countryCode: '+1',
+            countryName: '',
         }
     }
 
-    changeCountryCode = (code,cca2) => {
+    changeCountryCode = (code, cca2) => {
         this.setState({
-            countryCode:'+'+code,
-            countryName:cca2
+            countryCode: '+' + code,
+            countryName: cca2
         })
     }
+
     validateEmail = (email) => {
         console.log(email);
-        let reg = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/ ;
-        if(reg.test(email) === false)
-        {
+        let reg = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (reg.test(email) === false) {
             this.email.refs.electronic_mail.focus();
             this._scrollToInput(ReactNative.findNodeHandle(this.email.refs.electronic_mail));
             this.setState({
-                email:email,
-                email_status:false,
-                email_error:"Enter a valid email address.",
+                email: email,
+                email_status: false,
+                email_error: "Enter a valid email address.",
             })
         }
         else {
             this.setState({
-                email:email,
-                email_status:true,
-                email_error:null,
+                email: email,
+                email_status: true,
+                email_error: null,
             })
         }
     }
 
     mobileNumberChecking = () => {
-        if(this.state.countryCode){
-            const number = phoneUtil.parseAndKeepRawInput(this.state.countryCode+this.state.inputNumber, this.state.countryName)
+        if (this.state.countryCode) {
+            const number = phoneUtil.parseAndKeepRawInput(this.state.countryCode + this.state.inputNumber, this.state.countryName)
             if (phoneUtil.isValidNumber(number)) {
                 this.setState({
                     mobile_number_status: true,
-                    mobile_error:null,
+                    mobile_error: null,
                 })
             } else {
                 this.setState({
                     mobile_number_status: false,
-                    mobile_error:"Enter a valid mobile number.",
+                    mobile_error: "Enter a valid mobile number.",
                 })
             }
         }
@@ -99,20 +110,20 @@ export default class Signup extends Component {
     companyChecking = () => {
         if (this.state.company) {
             this.setState({
-                company_error:null,
+                company_error: null,
             })
         } else {
             this.company.refs.company.focus();
             this._scrollToInput(ReactNative.findNodeHandle(this.company.refs.company));
             this.setState({
-                company_error:"Enter a valid company id."
+                company_error: "Enter a valid company id."
             })
         }
 
     }
 
     password1Checking = () => {
-        if (this.state.password1.length>=8) {
+        if (this.state.password1.length >= 8) {
             this.setState({
                 password1_status: true
             })
@@ -130,21 +141,21 @@ export default class Signup extends Component {
         if (this.state.password2) {
             this.setState({
                 password2_status: true,
-                password_error:null,
+                password_error: null,
             })
         } else {
             this.confirm.refs.confirm_password.focus()
             this._scrollToInput(ReactNative.findNodeHandle(this.confirm.refs.confirm_password));
             this.setState({
                 password2_status: false,
-                password_error:"Confirm your password.",
+                password_error: "Confirm your password.",
             })
         }
 
     }
 
     passwordMatching = () => {
-        if(this.state.password2_status){
+        if (this.state.password2_status) {
             if (this.state.password1 !== this.state.password2) {
                 this.confirm.refs.confirm_password.focus()
                 this._scrollToInput(ReactNative.findNodeHandle(this.confirm.refs.confirm_password));
@@ -159,14 +170,14 @@ export default class Signup extends Component {
         }
     }
 
-    _scrollToInput (inputHandle) {
+    _scrollToInput(inputHandle) {
         const scrollResponder = this.refs.myScrollView.getScrollResponder();
         scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
-          inputHandle, // The TextInput node handle
-          0, // The scroll view's bottom "contentInset" (default 0)
-          true // Prevent negative scrolling
+            inputHandle, // The TextInput node handle
+            0, // The scroll view's bottom "contentInset" (default 0)
+            true // Prevent negative scrolling
         );
-      }
+    }
 
     signup = async () => {
         let data = {
@@ -184,8 +195,8 @@ export default class Signup extends Component {
             }
         }*/
 
-        if(this.state.inputNumber && this.state.countryCode){
-            data.mobile_number= '+'+this.state.countryCode+this.state.inputNumber;
+        if (this.state.inputNumber && this.state.countryCode) {
+            data.mobile_number = '+' + this.state.countryCode + this.state.inputNumber;
         }
         await this.validateEmail(this.state.email);
         await this.mobileNumberChecking();
@@ -193,34 +204,34 @@ export default class Signup extends Component {
         await this.password1Checking();
         await this.password2Checking();
         await this.passwordMatching();
-        console.log(data)
-        if(!this.state.password_error && this.state.email_status && this.state.mobile_number_status && this.state.company && this.state.password1_status){
+        if (!this.state.password_error && this.state.email_status && this.state.mobile_number_status && this.state.company && this.state.password1_status) {
             let responseJson = await AuthService.signup(data)
             if (responseJson.status === "success") {
                 const loginInfo = responseJson.data
                 if (data.mobile_number) {
-                    this.props.navigation.navigate("AuthVerifyMobile", {loginInfo, signupInfo: this.state})
+                    // TODO - Check this. Would probably not pass the signupInfo
+                    this.props.navigation.navigate("TermsView", {loginInfo, signupInfo: this.state})
                 } else {
                     Auth.login(this.props.navigation, loginInfo)
                 }
             }
             else {
                 //console.log(responseJson.message)
-                if(responseJson.data.company){
+                if (responseJson.data.company) {
                     this.company.refs.company.focus()
                     this._scrollToInput(ReactNative.findNodeHandle(this.company.refs.company));
                     this.setState({
                         company_error: responseJson.data.company,
                     })
                 }
-                if(responseJson.data.email){
+                if (responseJson.data.email) {
                     this.email.refs.electronic_mail.focus();
                     this._scrollToInput(ReactNative.findNodeHandle(this.email.refs.electronic_mail));
                     this.setState({
                         email_error: responseJson.data.email,
                     })
                 }
-                if(responseJson.data.mobile_number){
+                if (responseJson.data.mobile_number) {
                     this.mobile_number.refs.mobile_number.focus();
                     this._scrollToInput(ReactNative.findNodeHandle(this.mobile_number.refs.mobile_number));
                     this.setState({
@@ -241,7 +252,8 @@ export default class Signup extends Component {
                 />
                 <View style={styles.mainContainer}>
                     <KeyboardAvoidingView style={styles.container} behavior={'padding'} keyboardVerticalOffset={85}>
-                        <ScrollView keyboardDismissMode={'interactive'} ref="myScrollView" keyboardShouldPersistTaps='always'>
+                        <ScrollView keyboardDismissMode={'interactive'} ref="myScrollView"
+                                    keyboardShouldPersistTaps='always'>
                             <TextInput
                                 title="First name"
                                 underlineColorAndroid="white"
@@ -282,7 +294,7 @@ export default class Signup extends Component {
                                 keyboardType="numeric"
                                 value={this.state.inputNumber}
                                 underlineColorAndroid="white"
-                                onChangeText={(mobile_number) => this.setState({inputNumber:mobile_number})}
+                                onChangeText={(mobile_number) => this.setState({inputNumber: mobile_number})}
                                 changeCountryCode={this.changeCountryCode}
                                 error={this.state.mobile_error}
                                 ref={ref => this.mobile_number = ref}
@@ -311,7 +323,7 @@ export default class Signup extends Component {
                                 autoCapitalize="none"
                                 secureTextEntry
                                 onChangeText={(password1) => this.setState({password1})}
-                                error={!this.state.password1_status ? "Password must be at least 8 characters." :  null}
+                                error={!this.state.password1_status ? "Password must be at least 8 characters." : null}
                                 returnKeyType="next"
                                 ref={ref => this.pass = ref}
                                 reference="password"
@@ -330,24 +342,6 @@ export default class Signup extends Component {
                                 ref={ref => this.confirm = ref}
                                 reference="confirm_password"
                             />
-                            <View style={styles.termsAndCondition}>
-                                <Icon
-                                    onPress={() => this.setState({
-                                        terms_and_conditions: !this.state.terms_and_conditions
-                                    })}
-                                    name="md-checkbox"
-                                    size={30}
-                                    color={this.state.terms_and_conditions ? Colors.green : Colors.lightgray}
-                                />
-                                <Text style={styles.agreeText}>
-                                    I agree to the
-                                </Text>
-                                <TouchableOpacity onPress={() => Linking.openURL('https://rehive.com/legal/')}>
-                                    <Text style={styles.termsText}>
-                                        terms of use
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
                         </ScrollView>
                         <TouchableHighlight
                             style={styles.submit}
@@ -388,7 +382,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 20,
         paddingVertical: 10,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     termsText: {
         color: Colors.lightblue,

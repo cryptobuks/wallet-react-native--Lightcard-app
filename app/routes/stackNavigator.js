@@ -45,22 +45,30 @@ import SettingsNotifications from './../screens/settings/notifications/notificat
 import EmailNotifications from './../screens/settings/notifications/emailNotifications'
 import MobileNotifications from './../screens/settings/notifications/mobileNotifications'
 import NoNetConnection from './../screens/home/noNetConnection'
+import SliderScreen from '../screens/about/slider';
+import TermsView from '../screens/auth/terms';
 
 const Stack = {
+    InitialScreen: {
+        screen: InitialScreen,
+    },
     Home: {
         screen: Home,
     },
+    SliderScreen: {
+        screen: SliderScreen,
+    },
     NoNetConnection: {
         screen: NoNetConnection,
-    },
-    InitialScreen: {
-        screen: InitialScreen
     },
     Login: {
         screen: Login,
     },
     Signup: {
         screen: Signup,
+    },
+    TermsView: {
+        screen: TermsView,
     },
     AuthVerifyMobile: {
         screen: AuthVerifyMobile,
@@ -89,8 +97,8 @@ const Stack = {
     AccountsB: {
         screen: AccountsB,
     },
-    NewAccount:{
-        screen:NewAccount
+    NewAccount: {
+        screen: NewAccount
     },
     AddAccountB: {
         screen: AddAccountB
