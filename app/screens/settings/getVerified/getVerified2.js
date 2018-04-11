@@ -275,6 +275,15 @@ export default class GetVerified extends Component {
                     drawer
                     title="Get verified"
                 />
+                <View style={styles.buttonbar}>
+                    <TouchableHighlight
+                        style={styles.skip}
+                        onPress={() => this.props.navigation.navigate("Deposit")}>
+                        <Text style={{color: 'white', fontSize: 20}}>
+                            Skip Verification
+                        </Text>
+                    </TouchableHighlight>
+                </View>
                 <View style={styles.mainContainer}>
                     <View style={styles.titleContainer}>
                         <Text style={{fontSize: 16}}>
@@ -353,6 +362,23 @@ const styles = StyleSheet.create({
     buttonText: {
         color: Colors.lightblue,
         fontSize: 16,
-    }
+    },
+    buttonbar: {
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        paddingHorizontal: 25,
+        justifyContent: 'center',
+        paddingVertical: 10,
+        backgroundColor: 'transparent',
+        zIndex: 10,
+    },
+    skip: {
+        backgroundColor: Colors.lightblue,
+        height: 40,
+        borderRadius: 25,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 
 })
