@@ -24,10 +24,9 @@ export default class AmountEntry extends Component {
     }
 
     reload = () => {
-        //TODO: Fix this bypass
-        console.log("in reload...");
-        // Auth.login(this.props.navigation, this.state.loginInfo)
-        this.props.navigation.navigate("KnowYourConsumer");
+        // TODO: Fix this bypass
+        Auth.login(this.props.navigation, this.state.loginInfo);
+        this.props.navigation.navigate("GetVerified");
     };
     resend = async () => {
         let responseJson = await SettingsService.resendMobileVerification({
@@ -50,17 +49,16 @@ export default class AmountEntry extends Component {
     verify = async () => {
         console.log('in verify...');
         await AsyncStorage.setItem("token", this.state.loginInfo.token);
-        // let responseJson = await SettingsService.verifyMobile(this.state);
         // TODO - Fix this bypass
-        // if (responseJson.status === "success") {
-        //     this.reload()
-        // }
-        // else {
-        //     Alert.alert('Error',
-        //         responseJson.message,
-        //         [{text: 'OK'}])
-        // }
-        console.log('going to reload...');
+        let responseJson = await SettingsService.verifyMobile(this.state);
+        if (responseJson.status === "success") {
+            this.reload()
+        }
+        else {
+            Alert.alert('Error',
+                responseJson.message,
+                [{text: 'OK'}])
+        }
         this.reload();
     };
 

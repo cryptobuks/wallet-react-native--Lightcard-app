@@ -5,8 +5,6 @@ import Colors from './../../config/colors'
 import Header from '../../components/header';
 
 
-//TODO: Pretty much everything
-
 export default class TermsView extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +16,6 @@ export default class TermsView extends Component {
             termsSelected2: false,
             termsSelected3: false,
         };
-
     }
 
     allTermsSelected() {
@@ -32,7 +29,7 @@ export default class TermsView extends Component {
                 <Header
                     navigation={this.props.navigation}
                     back
-                    title="Login"
+                    title="Terms and Conditions"
                 />
 
                 <View style={styles.textContainer}>

@@ -47,7 +47,6 @@ import MobileNotifications from './../screens/settings/notifications/mobileNotif
 import NoNetConnection from './../screens/home/noNetConnection'
 import SliderScreen from '../screens/about/slider';
 import TermsView from '../screens/auth/terms';
-import KnowYourConsumer from '../screens/auth/knowYourConsumer';
 import Deposit from '../screens/deposit/deposit';
 import GetVerified from '../screens/settings/getVerified/getVerified2';
 

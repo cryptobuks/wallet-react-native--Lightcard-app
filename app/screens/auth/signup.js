@@ -11,9 +11,9 @@ import Header from './../../components/header'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 
 const mockState = {
-    first_name: 'Renier',
-    last_name: 'Botha',
-    email: 'r.botha91+x1@gmail.com',
+    first_name: 'Test',
+    last_name: '11-Apr-17:08',
+    email: 'r.botha91+x11@gmail.com',
     email_status: true,
     mobile_number: '842001899',
     mobile_number_status: true,
@@ -39,7 +39,7 @@ export default class Signup extends Component {
     }
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             first_name: '',
             last_name: '',
@@ -63,7 +63,7 @@ export default class Signup extends Component {
             countryName: '',
         }
 
-        this.state = mockState;
+        // this.state = mockState;
     }
 
     changeCountryCode = (code, cca2) => {
@@ -202,59 +202,57 @@ export default class Signup extends Component {
             data.mobile_number = '+' + this.state.countryCode + this.state.inputNumber;
         }
 
+        // console.log("data = ", data);
+        // let fakeResponseJson = await AuthService.signup(data);
+        // const loginInfo = fakeResponseJson.data;
+        // this.props.navigation.navigate("TermsView", {loginInfo, signupInfo: mockState});
+
+
         // TODO: Switch these back on
-        // await this.validateEmail(this.state.email);
-        // await this.mobileNumberChecking();
-        // await this.companyChecking();
-        // await this.password1Checking();
-        // await this.password2Checking();
-        // await this.passwordMatching();
+        await this.validateEmail(this.state.email);
+        await this.mobileNumberChecking();
+        await this.companyChecking();
+        await this.password1Checking();
+        await this.password2Checking();
+        await this.passwordMatching();
 
 
-        // TODO: Fix this bypass
-        console.log("data = ", data);
-        let fakeResponseJson = await AuthService.signup(data);
-        const loginInfo = fakeResponseJson.data;
-        this.props.navigation.navigate("TermsView", {loginInfo, signupInfo: mockState});
-
-        //
-        //
-        // if (!this.state.password_error && this.state.email_status && this.state.mobile_number_status && this.state.company && this.state.password1_status) {
-        //     let responseJson = await AuthService.signup(data)
-        //     if (responseJson.status === "success") {
-        //         const loginInfo = responseJson.data
-        //         if (data.mobile_number) {
-        //             // TODO - Check this. Would probably not pass the signupInfo
-        //             this.props.navigation.navigate("TermsView", {loginInfo, signupInfo: mockState});
-        //         } else {
-        //             Auth.login(this.props.navigation, loginInfo)
-        //         }
-        //     }
-        //     else {
-        //         //console.log(responseJson.message)
-        //         if (responseJson.data.company) {
-        //             this.company.refs.company.focus()
-        //             this._scrollToInput(ReactNative.findNodeHandle(this.company.refs.company));
-        //             this.setState({
-        //                 company_error: responseJson.data.company,
-        //             })
-        //         }
-        //         if (responseJson.data.email) {
-        //             this.email.refs.electronic_mail.focus();
-        //             this._scrollToInput(ReactNative.findNodeHandle(this.email.refs.electronic_mail));
-        //             this.setState({
-        //                 email_error: responseJson.data.email,
-        //             })
-        //         }
-        //         if (responseJson.data.mobile_number) {
-        //             this.mobile_number.refs.mobile_number.focus();
-        //             this._scrollToInput(ReactNative.findNodeHandle(this.mobile_number.refs.mobile_number));
-        //             this.setState({
-        //                 mobile_error: responseJson.data.mobile_number,
-        //             })
-        //         }
-        //     }
-        // }
+        // TODO: Turn off this bypass
+        if (!this.state.password_error && this.state.email_status && this.state.mobile_number_status && this.state.company && this.state.password1_status) {
+            let responseJson = await AuthService.signup(data);
+            if (responseJson.status === "success") {
+                const loginInfo = responseJson.data
+                if (data.mobile_number) {
+                    this.props.navigation.navigate("TermsView", {loginInfo, signupInfo: this.state});
+                } else {
+                    Auth.login(this.props.navigation, loginInfo)
+                }
+            }
+            else {
+                //console.log(responseJson.message)
+                if (responseJson.data.company) {
+                    this.company.refs.company.focus()
+                    this._scrollToInput(ReactNative.findNodeHandle(this.company.refs.company));
+                    this.setState({
+                        company_error: responseJson.data.company,
+                    })
+                }
+                if (responseJson.data.email) {
+                    this.email.refs.electronic_mail.focus();
+                    this._scrollToInput(ReactNative.findNodeHandle(this.email.refs.electronic_mail));
+                    this.setState({
+                        email_error: responseJson.data.email,
+                    })
+                }
+                if (responseJson.data.mobile_number) {
+                    this.mobile_number.refs.mobile_number.focus();
+                    this._scrollToInput(ReactNative.findNodeHandle(this.mobile_number.refs.mobile_number));
+                    this.setState({
+                        mobile_error: responseJson.data.mobile_number,
+                    })
+                }
+            }
+        }
     }
 
     render() {
