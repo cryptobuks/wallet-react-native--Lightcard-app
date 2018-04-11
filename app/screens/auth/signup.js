@@ -13,7 +13,7 @@ const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 const mockState = {
     first_name: 'Renier',
     last_name: 'Botha',
-    email: 'r.botha91+xx@gmail.com',
+    email: 'r.botha91+x1@gmail.com',
     email_status: true,
     mobile_number: '842001899',
     mobile_number_status: true,
@@ -201,6 +201,8 @@ export default class Signup extends Component {
         if (this.state.inputNumber && this.state.countryCode) {
             data.mobile_number = '+' + this.state.countryCode + this.state.inputNumber;
         }
+
+        // TODO: Switch these back on
         // await this.validateEmail(this.state.email);
         // await this.mobileNumberChecking();
         // await this.companyChecking();

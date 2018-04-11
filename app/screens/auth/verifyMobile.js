@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
-import {View, KeyboardAvoidingView, StyleSheet, AsyncStorage, TouchableHighlight, Text, Alert} from 'react-native'
+import {Alert, AsyncStorage, KeyboardAvoidingView, StyleSheet, Text, TouchableHighlight, View} from 'react-native'
 import SettingsService from './../../services/settingsService'
 import Auth from './../../util/auth'
-import AuthService from './../../services/authService'
 import TextInput from './../../components/textInput'
 import Colors from './../../config/colors'
 import Header from './../../components/header'
@@ -10,28 +9,31 @@ import Header from './../../components/header'
 export default class AmountEntry extends Component {
     static navigationOptions = {
         title: 'Verify mobile number',
-    }
+    };
 
     constructor(props) {
-        super(props)
-        const params = this.props.navigation.state.params
+        super(props);
+        const params = this.props.navigation.state.params;
         this.state = {
             otp_msg: "Enter OTP",
             isEdit: false,
             otp: '',
             loginInfo: params.loginInfo,
             signupInfo: params.signupInfo,
-        }
+        };
     }
 
     reload = () => {
-        Auth.login(this.props.navigation, this.state.loginInfo)
-    }
+        //TODO: Fix this bypass
+        console.log("in reload...");
+        // Auth.login(this.props.navigation, this.state.loginInfo)
+        this.props.navigation.navigate("KnowYourConsumer");
+    };
     resend = async () => {
         let responseJson = await SettingsService.resendMobileVerification({
             mobile: this.state.signupInfo.mobile_number,
-            company: this.state.signupInfo.company
-        })
+            company: this.state.signupInfo.company,
+        });
         if (responseJson.status === "success") {
             Alert.alert(
                 "Email Resend",
@@ -44,20 +46,23 @@ export default class AmountEntry extends Component {
                 responseJson.message,
                 [{text: 'OK'}])
         }
-    }
+    };
     verify = async () => {
-        await AsyncStorage.setItem("token", this.state.loginInfo.token)
-        let responseJson = await SettingsService.verifyMobile(this.state)
-
-        if (responseJson.status === "success") {
-            this.reload()
-        }
-        else {
-            Alert.alert('Error',
-                responseJson.message,
-                [{text: 'OK'}])
-        }
-    }
+        console.log('in verify...');
+        await AsyncStorage.setItem("token", this.state.loginInfo.token);
+        // let responseJson = await SettingsService.verifyMobile(this.state);
+        // TODO - Fix this bypass
+        // if (responseJson.status === "success") {
+        //     this.reload()
+        // }
+        // else {
+        //     Alert.alert('Error',
+        //         responseJson.message,
+        //         [{text: 'OK'}])
+        // }
+        console.log('going to reload...');
+        this.reload();
+    };
 
     /*editMobile = () => {
      this.setState({})
@@ -155,4 +160,4 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         paddingHorizontal: 25,
     },
-})
+});
