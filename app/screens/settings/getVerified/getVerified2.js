@@ -67,8 +67,7 @@ export default class GetVerified extends Component {
             email: user.email,
             mobile_number: user.mobile_number,
             basic_info: user.first_name + ' ' + user.last_name,
-            basic_info_status: user.status,
-            address_status:user.kyc.addresses.status?user.kyc.addresses.status:'incomplete'
+            basic_info_status: user.status
         })
     }
 
@@ -126,7 +125,7 @@ export default class GetVerified extends Component {
                 if (this.state.mobile_number_status != 'Verified') {
                     this.setState({
                         mobile_number_status: 'Pending',
-                        mobile_number:data[0].number
+                        mobile_number: data[0].number
                     })
                 }
             }
@@ -141,29 +140,34 @@ export default class GetVerified extends Component {
         let responseJsonAddress = await UserInfoService.getAddress()
         if (responseJsonAddress.status === 'success') {
             const data = responseJsonAddress.data
-            let address='';
-            if(data.line_1){
-                address=address+data.line_1+','
+            console.log(data.status)
+            let address = '';
+
+
+            if (data.line_1) {
+                address = address + data.line_1 + ', '
             }
-            if(data.line_2){
-                address=address+data.line_2+','
+            if (data.line_2) {
+                address = address + data.line_2 + ', '
             }
-            if(data.city){
-                address=address+data.city+','
+            if (data.city) {
+                address = address + data.city + ', '
             }
-            if(data.state_province){
-                address=address+data.state_province+','
+            if (data.state_province) {
+                address = address + data.state_province + ', '
             }
-            if(data.country){
-                address=address+data.country+','
+            if (data.country) {
+                address = address + data.country + ', '
             }
-            if(data.postal_code){
-                address=address+data.postal_code
+            if (data.postal_code) {
+                address = address + data.postal_code
             }
 
             this.setState({
-                address: address
+                address: address,
+                address_status: data.status
             })
+
         } else {
             Alert.alert('Error',
                 responseJsonAddress.message,
@@ -301,26 +305,26 @@ export default class GetVerified extends Component {
                     </View>
                     {
                         this.state.loading &&
-                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                             <ActivityIndicator size="large"/>
                         </View>
                     }
-                    {   !this.state.loading &&
+                    {!this.state.loading &&
                     <ScrollView style={{flex: 1}}>
                         <Option title="Email address" subtitle={this.state.email}
                                 buttonText={this.state.email_status.toUpperCase()}
                                 gotoAddress="SettingsEmailAddresses" goTo={this.goTo}/>
 
                         <Option title="Mobile number" subtitle={this.state.mobile_number}
-                                 buttonText={this.state.mobile_number_status.toUpperCase()}
-                                 gotoAddress="SettingsMobileNumbers" goTo={this.goTo}/>
+                                buttonText={this.state.mobile_number_status.toUpperCase()}
+                                gotoAddress="SettingsMobileNumbers" goTo={this.goTo}/>
 
                         <Option title="Basic Info" subtitle={this.state.basic_info}
                                 buttonText={this.state.basic_info_status.toUpperCase()}
                                 gotoAddress="SettingsPersonalDetails" goTo={this.goTo}/>
 
                         <Option title="Address" subtitle={this.state.address}
-                                buttonText={this.state.address_status.toUpperCase()}
+                                buttonText={this.state.address_status}
                                 gotoAddress="SettingsAddress" goTo={this.goTo}/>
 
                         <Option title="Proof of Identity" subtitle={this.state.proof_of_identity}

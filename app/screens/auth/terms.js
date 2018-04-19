@@ -76,9 +76,9 @@ export default class TermsView extends Component {
                     <Text style={styles.agreeText}>
                         I agree to the
                     </Text>
-                    <TouchableOpacity onPress={() => Linking.openURL('https://rehive.com/terms-of-use')}>
+                    <TouchableOpacity onPress={() => Linking.openURL('https://rehive.com/terms')}>
                         <Text style={styles.termsText}>
-                            terms of use
+                            Terms of use
                         </Text>
                     </TouchableOpacity>
                 </View>
