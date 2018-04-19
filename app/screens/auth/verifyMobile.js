@@ -46,6 +46,7 @@ export default class AmountEntry extends Component {
                 [{text: 'OK'}])
         }
     };
+
     verify = async () => {
         console.log('in verify...');
         await AsyncStorage.setItem("token", this.state.loginInfo.token);
@@ -62,20 +63,6 @@ export default class AmountEntry extends Component {
         this.reload();
     };
 
-    /*editMobile = () => {
-     this.setState({})
-     return (
-     <TextInput
-     title="Change mobile no"
-     value={this.state.mobile_number}
-     autoCapitalize="none"
-     keyboardType="numeric"
-     underlineColorAndroid="white"
-     onChangeText={(mobile) => this.setState({mobile_number: mobile})}
-     />
-     )
-     }*/
-
     render() {
         return (
             <View style={{flex: 1}}>
@@ -87,7 +74,6 @@ export default class AmountEntry extends Component {
                     <View style={{flex: 1}}>
                         <TextInput
                             title={this.state.otp_msg}
-                            /*editable={this.editMobile}*/
                             placeholder="OTP"
                             autoCapitalize="none"
                             keyboardType="numeric"

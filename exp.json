@@ -1,15 +1,15 @@
 {
-  "name": "Rehive Wallet",
-  "description": "A multi-currency wallet built on the Rehive platform.",
+  "name": "Lightcard Demo",
+  "description": "Multi-currency wallet.",
   "version": "0.0.1",
-  "slug": "rehive-wallet",
+  "slug": "lightcard-demo",
   "privacy": "public",
   "sdkVersion": "24.0.0",
   "orientation": "portrait",
-  "primaryColor": "#cccccc",
+  "primaryColor": "#7D98A1",
   "icon": "./assets/icons/app.png",
   "loading": {
-    "icon": "./assets/icons/new_loading.png",
+    "icon": "./assets/icons/loading.png",
     "hideExponentText": false
   },
   "packagerOpts": {
@@ -17,9 +17,9 @@
   },
   "ios": {
     "supportsTablet": true,
-    "bundleIdentifier": "com.rehive.wallet"
+    "bundleIdentifier": "co.za.lightcard.wallet"
   },
   "android": {
-    "package": "com.rehive.wallet"
+    "package": "co.za.lightcard.wallet"
   }
 }

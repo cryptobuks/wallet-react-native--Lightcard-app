@@ -51,7 +51,7 @@ export default class TermsView extends Component {
                             termsSelected1: !this.state.termsSelected1,
                         })}
                         name="md-checkbox"
-                        size={20}
+                        size={40}
                         color={this.state.termsSelected1 ? Colors.green : Colors.lightgray}
                         style={styles.termsSelectButton}
                     />
@@ -60,27 +60,26 @@ export default class TermsView extends Component {
                             termsSelected2: !this.state.termsSelected2,
                         })}
                         name="md-checkbox"
-                        size={20}
+                        size={40}
                         color={this.state.termsSelected2 ? Colors.green : Colors.lightgray}
                         style={styles.termsSelectButton}
                     />
-                    <Icon
-                        onPress={() => this.setState({
-                            termsSelected3: !this.state.termsSelected3,
-                        })}
-                        name="md-checkbox"
-                        size={20}
-                        color={this.state.termsSelected3 ? Colors.green : Colors.lightgray}
-                        style={styles.termsSelectButton}
-                    />
-                    <Text style={styles.agreeText}>
-                        I agree to the
-                    </Text>
-                    <TouchableOpacity onPress={() => Linking.openURL('https://rehive.com/terms')}>
-                        <Text style={styles.termsText}>
-                            Terms of use
-                        </Text>
-                    </TouchableOpacity>
+                    <View style={styles.termsContainer}>
+                        <Icon
+                            onPress={() => this.setState({
+                                termsSelected3: !this.state.termsSelected3,
+                            })}
+                            name="md-checkbox"
+                            size={40}
+                            color={this.state.termsSelected3 ? Colors.green : Colors.lightgray}
+                            style={styles.termsSelectButton}
+                        />
+                        <TouchableOpacity onPress={() => Linking.openURL('https://lightcard.co.za')}>
+                            <Text style={styles.termsText}>
+                                I agree to the Terms of Use
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={styles.buttonsContainer}>
                     <TouchableHighlight
@@ -141,19 +140,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    termsContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     text: {
         fontSize: 12,
         color: Colors.lightblue,
     },
     termsAndCondition: {
-        flexDirection: 'row',
         paddingHorizontal: 20,
         paddingVertical: 10,
-        alignItems: 'center',
+        alignItems: 'flex-start',
     },
     termsText: {
         color: Colors.lightblue,
         fontSize: 16,
+        alignItems: 'center',
     },
     termsSelectButton: {
         padding: 5,

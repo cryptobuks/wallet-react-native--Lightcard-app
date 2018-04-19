@@ -67,7 +67,8 @@ export default class GetVerified extends Component {
             email: user.email,
             mobile_number: user.mobile_number,
             basic_info: user.first_name + ' ' + user.last_name,
-            basic_info_status: user.status
+            basic_info_status: user.status,
+            address_status: user.status
         })
     }
 
@@ -324,7 +325,7 @@ export default class GetVerified extends Component {
                                 gotoAddress="SettingsPersonalDetails" goTo={this.goTo}/>
 
                         <Option title="Address" subtitle={this.state.address}
-                                buttonText={this.state.address_status}
+                                buttonText={this.state.address_status.toUpperCase()}
                                 gotoAddress="SettingsAddress" goTo={this.goTo}/>
 
                         <Option title="Proof of Identity" subtitle={this.state.proof_of_identity}

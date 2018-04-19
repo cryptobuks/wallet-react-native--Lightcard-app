@@ -11,29 +11,6 @@ import PasswordInput from './../../components/passwordInput'
 
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 
-const mockState = {
-    first_name: 'Test',
-    last_name: '11-Apr-17:08',
-    email: 'r.botha91+x11@gmail.com',
-    email_status: true,
-    mobile_number: '842001899',
-    mobile_number_status: true,
-    company: 'lite91',
-    password1: 'Renier123',
-    password1_status: true,
-    password2: 'Renier123',
-    password2_status: true,
-    password_matching: true,
-    terms_and_conditions: true,
-    password_error: null,
-    mobile_error: null,
-    email_error: null,
-    company_error: null,
-    inputNumber: '',
-    countryCode: '+27',
-    countryName: 'South Africa',
-}
-
 export default class Signup extends Component {
     static navigationOptions = {
         title: 'Create new account',
@@ -97,7 +74,7 @@ export default class Signup extends Component {
 
     mobileNumberChecking = () => {
         if (this.state.countryCode) {
-            const number = phoneUtil.parseAndKeepRawInput(this.state.countryCode + this.state.inputNumber, this.state.countryName)
+            const number = phoneUtil.parseAndKeepRawInput(this.state.countryCode + this.state.inputNumber)
             if (phoneUtil.isValidNumber(number)) {
                 this.setState({
                     mobile_number_status: true,
@@ -193,21 +170,10 @@ export default class Signup extends Component {
             password2: this.state.password2,
             terms_and_conditions: this.state.terms_and_conditions,
         };
-        /*if (data.mobile_number) {
-            if (data.mobile_number.length < 8) {
-                delete data.mobile_number
-            }
-        }*/
 
         if (this.state.inputNumber && this.state.countryCode) {
             data.mobile_number = '+' + this.state.countryCode + this.state.inputNumber;
         }
-
-        // console.log("data = ", data);
-        // let fakeResponseJson = await AuthService.signup(data);
-        // const loginInfo = fakeResponseJson.data;
-        // this.props.navigation.navigate("TermsView", {loginInfo, signupInfo: mockState});
-
 
         // TODO: Switch these back on
         await this.validateEmail(this.state.email);
@@ -359,7 +325,7 @@ export default class Signup extends Component {
                             style={styles.submit}
                             onPress={() => this.signup()}>
                             <Text style={{color: 'white', fontSize: 20}}>
-                                Register
+                                Sign up
                             </Text>
                         </TouchableHighlight>
                     </KeyboardAvoidingView>

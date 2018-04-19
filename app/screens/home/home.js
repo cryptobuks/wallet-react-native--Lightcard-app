@@ -304,7 +304,7 @@ export default class Home extends Component {
                                     <HomeCard
                                         key={0}
                                         title="Welcome to Rehive"
-                                        image={require('./../../../assets/icons/new_logo.png')}
+                                        image={require('./../../../assets/icons/logo.png')}
                                         text="Put your logo and brand here."
                                         buttonText="Cool"/>
                                     <HomeCard
@@ -398,42 +398,7 @@ export default class Home extends Component {
                         </Text>
                     </TouchableHighlight>
                 </View>
-                {/*<PopupDialog
-                 ref={(popupDialog) => {
-                 this.popupDialog = popupDialog;
-                 }}
-                 height={250}>
-                 <View style={{flex: 1}}>
-                 <View style={{flex: 3, justifyContent: 'center', alignItems: 'center', padding: 20}}>
-                 <Image
-                 source={require('./../../../assets/icons/placeholder.png')}
-                 style={{height: 80, width: 80, margin: 10}}
-                 />
-                 <Text style={{fontSize: 20, color: Colors.black}}>
-                 {this.state.dataToShow.label + ": " + this.state.dataToShow.currency.symbol + this.getAmount(this.state.dataToShow.amount, this.state.dataToShow.currency.divisibility)}
-                 </Text>
-                 </View>
-                 <View style={{
-                 flex: 1,
-                 flexDirection: 'row',
-                 borderTopColor: Colors.lightgray,
-                 borderTopWidth: 1,
-                 paddingLeft: 20,
-                 paddingRight: 20
-                 }}>
-                 <View style={{flex: 2, justifyContent: 'center'}}>
-                 <Text style={{fontSize: 15, alignSelf: "flex-start", color: Colors.black}}>
-                 {moment(this.state.dataToShow.created).format('lll')}
-                 </Text>
-                 </View>
-                 <View style={{flex: 1, justifyContent: 'center'}}>
-                 <Text style={{fontSize: 15, alignSelf: "flex-end", color: Colors.black}}>
-                 {this.state.dataToShow.status}
-                 </Text>
-                 </View>
-                 </View>
-                 </View>
-                 </PopupDialog>*/}
+
                 <PopupDialog
                     ref={(popupDialog) => {
                         this.popupDialog = popupDialog;

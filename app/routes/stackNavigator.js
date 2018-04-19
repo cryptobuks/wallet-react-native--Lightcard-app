@@ -45,7 +45,6 @@ import SettingsNotifications from './../screens/settings/notifications/notificat
 import EmailNotifications from './../screens/settings/notifications/emailNotifications'
 import MobileNotifications from './../screens/settings/notifications/mobileNotifications'
 import NoNetConnection from './../screens/home/noNetConnection'
-import SliderScreen from '../screens/about/slider';
 import TermsView from '../screens/auth/terms';
 import Deposit from '../screens/deposit/deposit';
 import GetVerified from '../screens/settings/getVerified/getVerified2';
@@ -56,9 +55,6 @@ const Stack = {
     },
     Home: {
         screen: Home,
-    },
-    SliderScreen: {
-        screen: SliderScreen,
     },
     NoNetConnection: {
         screen: NoNetConnection,

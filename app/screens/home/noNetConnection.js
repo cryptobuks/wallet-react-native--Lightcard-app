@@ -23,7 +23,7 @@ export default class BankAccounts extends Component {
       <View style={styles.container}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Image
-            source={require('./../../../assets/icons/new_logo.png')}
+            source={require('./../../../assets/icons/logo.png')}
             resizeMode="contain"
             style={styles.image} />
           <Text style={styles.text}>
