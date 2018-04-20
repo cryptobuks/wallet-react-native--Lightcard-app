@@ -46,25 +46,41 @@ export default class TermsView extends Component {
                 </View>
 
                 <View style={styles.termsAndCondition}>
-                    <Icon
-                        onPress={() => this.setState({
-                            termsSelected1: !this.state.termsSelected1,
-                        })}
-                        name="md-checkbox"
-                        size={40}
-                        color={this.state.termsSelected1 ? Colors.green : Colors.lightgray}
-                        style={styles.termsSelectButton}
-                    />
-                    <Icon
-                        onPress={() => this.setState({
-                            termsSelected2: !this.state.termsSelected2,
-                        })}
-                        name="md-checkbox"
-                        size={40}
-                        color={this.state.termsSelected2 ? Colors.green : Colors.lightgray}
-                        style={styles.termsSelectButton}
-                    />
-                    <View style={styles.termsContainer}>
+                    <View style={styles.checkContainer}>
+                        <Icon
+                            onPress={() => this.setState({
+                                termsSelected1: !this.state.termsSelected1,
+                            })}
+                            n
+                            name="md-checkbox"
+                            size={40}
+                            color={this.state.termsSelected1 ? Colors.green : Colors.lightgray}
+                            style={styles.termsSelectButton}
+                        />
+                        <TouchableOpacity onPress={() => Linking.openURL('https://lightcard.co.za')}>
+                            <Text style={styles.checkText}>
+                                I agree to adhere to the South African Reserve Bank single discretionary allowance
+                                requirements.
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.checkContainer}>
+                        <Icon
+                            onPress={() => this.setState({
+                                termsSelected2: !this.state.termsSelected2,
+                            })}
+                            name="md-checkbox"
+                            size={40}
+                            color={this.state.termsSelected2 ? Colors.green : Colors.lightgray}
+                            style={styles.termsSelectButton}
+                        />
+                        <TouchableOpacity onPress={() => Linking.openURL('https://lightcard.co.za')}>
+                            <Text style={styles.checkText}>
+                                I agree to the Privacy Policy.
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.checkContainer}>
                         <Icon
                             onPress={() => this.setState({
                                 termsSelected3: !this.state.termsSelected3,
@@ -75,8 +91,8 @@ export default class TermsView extends Component {
                             style={styles.termsSelectButton}
                         />
                         <TouchableOpacity onPress={() => Linking.openURL('https://lightcard.co.za')}>
-                            <Text style={styles.termsText}>
-                                I agree to the Terms of Use
+                            <Text style={styles.checkText}>
+                                I agree to the Terms of Use.
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -140,17 +156,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    checkContainer: {
+        flexDirection: 'row',
+        paddingVertical: 10
+    },
+    checkText: {
+        color: Colors.lightblue,
+        fontSize: 16,
+        padding: 10
+    },
     termsContainer: {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    text: {
-        fontSize: 12,
-        color: Colors.lightblue,
-    },
     termsAndCondition: {
         paddingHorizontal: 20,
-        paddingVertical: 10,
+        paddingVertical: 25,
         alignItems: 'flex-start',
     },
     termsText: {

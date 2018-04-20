@@ -20,6 +20,8 @@ export default class InitialScreen extends Component {
                             source={require('./../../../assets/icons/app.png')}
                             resizeMode="contain"
                             style={styles.image}/>
+                        <Text style={styles.mainSlider}>Lightcard</Text>
+                        <Text style={styles.subSlider}>Money without borders</Text>
                     </View>
                     <View style={styles.slide}>
                         <View style={styles.imageContainer}>
@@ -91,6 +93,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.white,
+    },
+    mainSlider: {
+        color: Colors.lightblue,
+        paddingTop: 50,
+        fontSize: 35,
+        fontWeight: 'bold',
+    },
+    subSlider: {
+        padding: 10,
+        paddingHorizontal: 30,
+        textAlign: 'center',
+        fontSize: 20,
+        color: Colors.black,
     },
     titleSlider: {
         color: Colors.lightblue,
