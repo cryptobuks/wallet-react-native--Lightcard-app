@@ -63,7 +63,7 @@ export default class AmountEntry extends Component {
         else {
             let NGN_currency = NGN_currencies[0]
             this.setState({
-                balance: NGN_currency.available_balance/NGN_currency.currency.divisibility
+                balance: NGN_currency.available_balance/100
             })
         }
         
