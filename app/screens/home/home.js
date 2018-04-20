@@ -163,7 +163,9 @@ export default class Home extends Component {
                     reference: responseJson.data.results[0].reference,
                     balance: this.setBalance(account.available_balance, account.currency.divisibility),
                 })
+                AsyncStorage.setItem("balance", this.state.balance+"")
                 let responseJson2 = await AccountService.getAllAccountCurrencies(this.state.reference)
+                //console.log(responseJson2)
                 if (responseJson2.status === "success") {
                     const currencies = responseJson2.data.results
                     this.setState({
@@ -172,7 +174,6 @@ export default class Home extends Component {
                         selectedCurrency: -1,
                     })
                 }
-                await AsyncStorage.setItem("balance", this.state.balance+"")
             }
             else {
                 this.setState({

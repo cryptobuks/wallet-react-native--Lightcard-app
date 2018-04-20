@@ -10,6 +10,7 @@ import {
     Alert,
     TouchableWithoutFeedback
 } from 'react-native'
+import AccountService from './../../services/accountService'
 import ConversionService from './../../services/conversionService'
 import Spinner from 'react-native-loading-spinner-overlay'
 import ResetNavigation from './../../util/resetNavigation'
@@ -32,8 +33,8 @@ export default class AmountEntry extends Component {
             amountUSD: '',
             rate: 0,
             disabled: false,
-            loading: false,
-            loadingMessage: "",
+            loading: true,
+            loadingMessage: "Fetching rates",
             fromCurrency: "NGN",
             USD_currency: null,
             editable: true,
@@ -42,10 +43,30 @@ export default class AmountEntry extends Component {
     }
 
     async componentDidMount() {
-        var data = await AsyncStorage.getItem("balance");
-        this.setState({
-            balance: parseFloat(data)
+        var reference = await AsyncStorage.getItem("account_reference");
+        //console.log(reference)
+        let responseJson = await AccountService.getAllAccountCurrencies(JSON.parse(reference))
+        //console.log(responseJson)
+        let NGN_currencies = responseJson.data.results.filter((currency) => {
+            return currency.currency.code === this.state.fromCurrency
         })
+
+        if(NGN_currencies.length===0){
+            Alert.alert('Error',
+                "Currency '"+ this.state.fromCurrency + "' is not available in your active account.",
+                [{
+                    text: 'OK', onPress: () => {
+                        ResetNavigation.dispatchToSingleRoute(this.props.navigation, "Home")
+                    }
+                }])
+        }
+        else {
+            let NGN_currency = NGN_currencies[0]
+            this.setState({
+                balance: NGN_currency.available_balance/NGN_currency.currency.divisibility
+            })
+        }
+        
         var res = await ConversionService.getRates(this.state.fromCurrency)
         //console.log(responseJson)
         var response = res.data.results;
@@ -80,6 +101,9 @@ export default class AmountEntry extends Component {
                 })
             }
         }
+        this.setState({
+            loading: false,
+        })
     }
 
     send = async () => {
