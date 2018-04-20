@@ -7,10 +7,25 @@ import {
     Image
 } from 'react-native'
 import Swiper from 'react-native-swiper';
+import { Font } from 'expo';
 import Colors from './../../config/colors';
 import Header from '../../components/header';
 
 export default class InitialScreen extends Component {
+    constructor(props){
+        super(props)
+    }
+
+    async componentDidMount() {
+        try {
+            const token = await AsyncStorage.getItem('token')
+            if (token != null) {
+                ResetNavigation.dispatchToSingleRoute(this.props.navigation, "Home")
+            }
+            return token
+        } catch (error) {
+        }
+      }
     render() {
         return (
             <View style={styles.container}>

@@ -7,6 +7,7 @@ import Settings from './../screens/settings/settings'
 import Withdraw from './../screens/withdraw/withdraw'
 import About from './../screens/about/about'
 import Accounts from './../screens/accounts/accounts'
+import Transfer from './../screens/newTransfer/transfer'
 import NewAccounts from './../screens/accounts/newAccount'
 import Receive from './../screens/receive/receive'
 import Logout from './../screens/auth/logout'
@@ -20,6 +21,9 @@ import SendTo from './../screens/transfer/sendTo'
 const RouteConfigs = {
     Home: {
         screen: Home,
+    },
+    Transfer: {
+        screen: Transfer,
     },
     Accounts: {
         screen: NewAccounts,
