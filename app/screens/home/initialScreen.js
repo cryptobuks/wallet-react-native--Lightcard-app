@@ -3,6 +3,7 @@ import {
     View,
     StyleSheet,
     TouchableHighlight,
+    AsyncStorage,
     Text,
     Image
 } from 'react-native'
@@ -10,6 +11,7 @@ import Swiper from '../../components/swiper';
 import { Font } from 'expo';
 import Colors from './../../config/colors';
 import Header from '../../components/header';
+import ResetNavigation from './../../util/resetNavigation'
 
 export default class InitialScreen extends Component {
     constructor(props){
