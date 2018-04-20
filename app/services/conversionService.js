@@ -2,7 +2,8 @@ import BaseService from './baseServiceExchange'
 
 var AccountService = {
     getRates: (fromCurrency) => {
-        return BaseService.get('user/rates?fromCurrency='+fromCurrency)
+        return BaseService.get('user/rates/?fromCurrency='+fromCurrency)
+        // return BaseService.get('user/rates?fromCurrency='+fromCurrency)
     },
 
     saveQuotes: (to_amount, from_currency, to_currency) => {

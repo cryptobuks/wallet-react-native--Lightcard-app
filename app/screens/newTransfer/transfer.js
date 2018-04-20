@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {
     View,
     ScrollView,
@@ -44,16 +44,14 @@ export default class AmountEntry extends Component {
 
     async componentDidMount() {
         var reference = await AsyncStorage.getItem("account_reference");
-        //console.log(reference)
         let responseJson = await AccountService.getAllAccountCurrencies(JSON.parse(reference))
-        //console.log(responseJson)
         let NGN_currencies = responseJson.data.results.filter((currency) => {
             return currency.currency.code === this.state.fromCurrency
         })
 
-        if(NGN_currencies.length===0){
+        if (NGN_currencies.length === 0) {
             Alert.alert('Error',
-                "Currency '"+ this.state.fromCurrency + "' is not available in your active account.",
+                "Currency '" + this.state.fromCurrency + "' is not available in your active account.",
                 [{
                     text: 'OK', onPress: () => {
                         ResetNavigation.dispatchToSingleRoute(this.props.navigation, "Home")
@@ -63,12 +61,12 @@ export default class AmountEntry extends Component {
         else {
             let NGN_currency = NGN_currencies[0]
             this.setState({
-                balance: NGN_currency.available_balance/100
+                balance: NGN_currency.available_balance / 100
             })
         }
-        
+
         var res = await ConversionService.getRates(this.state.fromCurrency)
-        //console.log(responseJson)
+        console.log(res)
         var response = res.data.results;
         for (var i = 0; i < response.length; i++) {
             if (response[i].to_currency.code === "USD") {
@@ -81,7 +79,7 @@ export default class AmountEntry extends Component {
 
         if (!this.state.USD_currency) {
             Alert.alert('Error',
-                "No rates available for USD as to currency.",
+                "No rates available.",
                 [{
                     text: 'OK', onPress: () => {
                         ResetNavigation.dispatchToSingleRoute(this.props.navigation, "Home")
@@ -111,7 +109,7 @@ export default class AmountEntry extends Component {
             Alert.alert(
                 'Invalid',
                 'Enter valid amount',
-                [[{ text: 'OK' }]]
+                [[{text: 'OK'}]]
             )
         }
         else {
@@ -121,7 +119,7 @@ export default class AmountEntry extends Component {
             })
             let amountUSD = this.state.amount * this.state.rate
             amountUSD = amountUSD.toFixed(2) * 100
-            
+
             let responseJson = await ConversionService.saveQuotes(parseInt(amountUSD), this.state.fromCurrency, 'USD')
             //console.log(responseJson)
             if (responseJson.status === "success") {
@@ -184,14 +182,14 @@ export default class AmountEntry extends Component {
     }
 
     amountChanged = (text) => {
-        this.setState({ amount: text })
+        this.setState({amount: text})
         let amount = parseFloat(text)
         if (isNaN(amount)) {
-            this.setState({ amountUSD: 0.00 })
+            this.setState({amountUSD: 0.00})
         }
         else {
             let amountUSD = amount * this.state.rate;
-            this.setState({ amountUSD: amountUSD.toFixed(2) })
+            this.setState({amountUSD: amountUSD.toFixed(2)})
             if (amount > this.state.balance) {
                 this.setState({
                     disabled: true
@@ -204,14 +202,14 @@ export default class AmountEntry extends Component {
         }
     }
     amountUSDChanged = (text) => {
-        this.setState({ amountUSD: text })
+        this.setState({amountUSD: text})
         let amountUSD = parseFloat(text)
         if (isNaN(amountUSD)) {
-            this.setState({ amount: 0.00 })
+            this.setState({amount: 0.00})
         }
         else {
             var amount = amountUSD / this.state.rate
-            this.setState({ amount: amount.toFixed(2) })
+            this.setState({amount: amount.toFixed(2)})
             if (amount > this.state.balance) {
                 this.setState({
                     disabled: true
@@ -226,7 +224,7 @@ export default class AmountEntry extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
                 <Header
                     navigation={this.props.navigation}
                     drawer
@@ -235,7 +233,7 @@ export default class AmountEntry extends Component {
                 <Spinner
                     visible={this.state.loading}
                     textContent={this.state.loadingMessage}
-                    textStyle={{ color: '#FFF' }}
+                    textStyle={{color: '#FFF'}}
                 />
                 <KeyboardAvoidingView style={styles.container} behavior={'padding'}>
                     <ScrollView keyboardDismissMode={'interactive'}>
@@ -263,30 +261,30 @@ export default class AmountEntry extends Component {
                         />
                     </ScrollView>
                     {this.state.disabled &&
-                        <TouchableWithoutFeedback>
-                            <View style={[styles.submit, { backgroundColor: Colors.lightgray }]}>
-                                <Text style={{ color: 'white', fontSize: 20 }}>
-                                    Amount exceeds balance
-                                </Text>
-                            </View>
-                        </TouchableWithoutFeedback >
+                    <TouchableWithoutFeedback>
+                        <View style={[styles.submit, {backgroundColor: Colors.lightgray}]}>
+                            <Text style={{color: 'white', fontSize: 20}}>
+                                Amount exceeds balance
+                            </Text>
+                        </View>
+                    </TouchableWithoutFeedback>
                     }
                     {this.state.editable && !this.state.disabled &&
-                        <TouchableHighlight
-                            style={styles.submit}
-                            onPress={this.send}>
+                    <TouchableHighlight
+                        style={styles.submit}
+                        onPress={this.send}>
 
-                            <Text style={{ color: 'white', fontSize: 20 }}>
-                                Buy
-                            </Text>
-                        </TouchableHighlight>
+                        <Text style={{color: 'white', fontSize: 20}}>
+                            Buy
+                        </Text>
+                    </TouchableHighlight>
                     }
                     {!this.state.editable && !this.state.disabled &&
-                        <TouchableHighlight
+                    <TouchableHighlight
                         style={styles.submit}
                         onPress={this.confirm}>
 
-                        <Text style={{ color: 'white', fontSize: 20 }}>
+                        <Text style={{color: 'white', fontSize: 20}}>
                             Confirm
                         </Text>
                     </TouchableHighlight>
