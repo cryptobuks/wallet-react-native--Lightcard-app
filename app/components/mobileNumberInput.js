@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {View, Text, StyleSheet, TextInput} from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import CountryPicker from 'react-native-country-picker-modal'
 import Colors from './../config/colors'
 
@@ -18,17 +18,31 @@ export default class Account extends Component {
                 <Text style={styles.text}>
                     {this.props.title}
                 </Text>
+                {
+                    this.props.required ?
+                        <Text style={{ paddingLeft: 2, color: Colors.red }}>
+                            *
+                            </Text> : null
+                }
+
+                {
+                    this.props.error &&
+                    <Text style={[styles.errorText, { fontSize: this.props.error.length > 50 ? 10 : 11, }]}
+                        numberOfLines={3}>
+                        {this.props.error}
+                    </Text>
+                }
                 <View style={styles.countryPicker}>
                     <CountryPicker
                         onChange={(value) => {
-                            this.setState({cca2: value.cca2})
+                            this.setState({ cca2: value.cca2 })
                             this.props.changeCountryCode(value.callingCode)
                         }}
                         closeable
                         filterable
                         cca2={this.state.cca2}
                         translation="eng"
-                        styles={{width: 60, justifyContent: 'center'}}
+                        styles={{ width: 60, justifyContent: 'center' }}
                     />
                     <TextInput
                         value={this.props.code}
@@ -36,7 +50,7 @@ export default class Account extends Component {
                         style={styles.code}
                     />
                     <TextInput
-                        {...this.props}   
+                        {...this.props}
                         ref={this.props.reference}
                         style={styles.input}
                     />
@@ -89,5 +103,11 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    errorText: {
+        paddingTop:5,
+        paddingBottom: 10,
+        color:Colors.red,
+        paddingLeft:5,
     },
 })

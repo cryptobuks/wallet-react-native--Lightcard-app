@@ -173,24 +173,21 @@ export default class Signup extends Component {
 
         if (this.state.inputNumber && this.state.countryCode) {
             data.mobile_number = '+' + this.state.countryCode + this.state.inputNumber;
+            await this.mobileNumberChecking();
         }
 
-        // TODO: Switch these back on
-        await this.validateEmail(this.state.email);
-        await this.mobileNumberChecking();
-        await this.companyChecking();
-        await this.password1Checking();
         await this.password2Checking();
         await this.passwordMatching();
+        await this.password1Checking();
+        await this.companyChecking();
+        await this.validateEmail(this.state.email);
 
-
-        // TODO: Turn off this bypass
         if (!this.state.password_error && this.state.email_status && this.state.mobile_number_status && this.state.company && this.state.password1_status) {
             let responseJson = await AuthService.signup(data);
             if (responseJson.status === "success") {
                 const loginInfo = responseJson.data
                 if (data.mobile_number) {
-                    this.props.navigation.navigate("TermsView", {loginInfo, signupInfo: this.state});
+                    this.props.navigation.navigate("TermsView", {loginInfo, signupInfo: data});
                 } else {
                     Auth.login(this.props.navigation, loginInfo)
                 }
